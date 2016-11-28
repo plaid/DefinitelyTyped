@@ -5,7 +5,7 @@
 
 declare var _: _.LoDashStatic;
 
-declare module _ {
+declare namespace _ {
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps the given value to enable intuitive method chaining.
@@ -41,8 +41,8 @@ declare module _ {
         (value: number): LoDashImplicitWrapper<number>;
         (value: string): LoDashImplicitStringWrapper;
         (value: boolean): LoDashImplicitWrapper<boolean>;
-        (value: Array<number>): LoDashImplicitNumberArrayWrapper;
-        <T>(value: Array<T>): LoDashImplicitArrayWrapper<T>;
+        (value: number[]): LoDashImplicitNumberArrayWrapper;
+        <T>(value: T[]): LoDashImplicitArrayWrapper<T>;
         <T extends {}>(value: T): LoDashImplicitObjectWrapper<T>;
         (value: any): LoDashImplicitWrapper<any>;
 
@@ -4341,24 +4341,24 @@ declare module _ {
          * @param items
          * @return Returns the new concatenated array.
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashImplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: (TItem|TItem[])[]): LoDashImplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
+        concat(...items: (T|T[])[]): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.concat
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashExplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: (TItem|TItem[])[]): LoDashExplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
+        concat(...items: (T|T[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.prototype.plant
@@ -6023,7 +6023,7 @@ declare module _ {
         * @see _.find
         **/
         findWhere<T>(
-            collection: Array<T>,
+            collection: T[],
             callback: ListIterator<T, boolean>,
             thisArg?: any): T | undefined;
 
@@ -6048,7 +6048,7 @@ declare module _ {
         * @param _.matches style callback
         **/
         findWhere<W, T>(
-            collection: Array<T>,
+            collection: T[],
             whereValue: W): T | undefined;
 
         /**
@@ -6072,7 +6072,7 @@ declare module _ {
         * @param _.property style callback
         **/
         findWhere<T>(
-            collection: Array<T>,
+            collection: T[],
             pluckValue: string): T | undefined;
 
         /**
@@ -6103,7 +6103,7 @@ declare module _ {
         * @return The found element, else undefined.
         **/
         findLast<T>(
-            collection: Array<T>,
+            collection: T[],
             callback: ListIterator<T, boolean>,
             thisArg?: any): T | undefined;
 
@@ -6128,7 +6128,7 @@ declare module _ {
         * @param _.pluck style callback
         **/
         findLast<W, T>(
-            collection: Array<T>,
+            collection: T[],
             whereValue: W): T | undefined;
 
         /**
@@ -6152,7 +6152,7 @@ declare module _ {
         * @param _.where style callback
         **/
         findLast<T>(
-            collection: Array<T>,
+            collection: T[],
             pluckValue: string): T | undefined;
 
         /**
@@ -7071,7 +7071,7 @@ declare module _ {
         * @param args Arguments to invoke the method with.
         **/
         invoke<T extends {}>(
-            collection: Array<T>,
+            collection: T[],
             methodName: string,
             ...args: any[]): any;
 
@@ -7095,7 +7095,7 @@ declare module _ {
         * @see _.invoke
         **/
         invoke<T extends {}>(
-            collection: Array<T>,
+            collection: T[],
             method: Function,
             ...args: any[]): any;
 
@@ -7488,7 +7488,7 @@ declare module _ {
         * @return Returns the accumulated value.
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult,
             thisArg?: any): TResult;
@@ -7515,7 +7515,7 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
@@ -7539,7 +7539,7 @@ declare module _ {
         * @see _.reduce
         **/
         inject<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult,
             thisArg?: any): TResult;
@@ -7566,7 +7566,7 @@ declare module _ {
         * @see _.reduce
         **/
         inject<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
@@ -7590,7 +7590,7 @@ declare module _ {
         * @see _.reduce
         **/
         foldl<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult,
             thisArg?: any): TResult;
@@ -7617,7 +7617,7 @@ declare module _ {
         * @see _.reduce
         **/
         foldl<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
@@ -7791,7 +7791,7 @@ declare module _ {
         * @return The accumulated value.
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult,
             thisArg?: any): TResult;
@@ -7818,7 +7818,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
@@ -7842,7 +7842,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         foldr<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult,
             thisArg?: any): TResult;
@@ -7869,7 +7869,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         foldr<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             thisArg?: any): TResult;
 
@@ -8847,7 +8847,7 @@ declare module _ {
         * @return A new array of sorted elements.
         **/
         sortByAll<T>(
-            collection: Array<T>,
+            collection: T[],
             iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
@@ -8861,7 +8861,7 @@ declare module _ {
         * @see _.sortByAll
         **/
         sortByAll<T>(
-            collection: Array<T>,
+            collection: T[],
             ...iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
@@ -8876,7 +8876,7 @@ declare module _ {
          * @param args The rules by which to sort
          */
         sortByAll<T>(
-            collection: (Array<T>|List<T>),
+            collection: (T[]|List<T>),
             ...args: (ListIterator<T, boolean>|Object|string)[]
         ): T[];
     }
@@ -9121,7 +9121,7 @@ declare module _ {
         * @return A new array of elements that have the given properties.
         **/
         where<T, U extends {}>(
-            list: Array<T>,
+            list: T[],
             properties: U): T[];
 
         /**
@@ -9875,7 +9875,7 @@ declare module _ {
         memoize: {
             <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
             Cache: MapCache;
-        }
+        };
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10045,36 +10045,36 @@ declare module _ {
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
         // arity 2
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1):            Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: PH, arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1): Function1<    T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, plc1: PH, arg2: T2): Function1<T1,     R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<        R>;
         // arity 3
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1):                      Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2):            Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2):            Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, plc2: PH, arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1): Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2): Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2): Function1<        T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, plc2: PH, arg3: T3): Function2<T1, T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3): Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, plc1: PH, arg2: T2, arg3: T3): Function1<T1,         R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<            R>;
         // arity 4
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1):                                Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2):                      Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2):                      Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3):            Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3):            Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3):            Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3):            Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, plc3: PH, arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1): Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2): Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2): Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3): Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3): Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3): Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3): Function1<            T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, plc3: PH, arg4: T4): Function3<T1, T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4): Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, plc3: PH, arg4: T4): Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4): Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, plc2: PH, arg3: T3, arg4: T4): Function2<T1, T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4): Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, plc1: PH, arg2: T2, arg3: T3, arg4: T4): Function1<T1,             R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<                R>;
         // catch-all
         (func: Function, ...args: any[]): Function;
     }
@@ -10088,7 +10088,7 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partialRight: PartialRight
+        partialRight: PartialRight;
     }
 
     interface PartialRight {
@@ -10098,36 +10098,36 @@ declare module _ {
         <T1, R>(func: Function1<T1, R>): Function1<T1, R>;
         <T1, R>(func: Function1<T1, R>, arg1: T1): Function0<R>;
         // arity 2
-        <T1, T2, R>(func: Function2<T1, T2, R>):                      Function2<T1, T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: PH):  Function1<    T2, R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2):  Function1<T1,     R>;
-        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2):  Function0<        R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>): Function2<T1, T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, plc2: PH): Function1<    T2, R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>,           arg2: T2): Function1<T1,     R>;
+        <T1, T2, R>(func: Function2<T1, T2, R>, arg1: T1, arg2: T2): Function0<        R>;
         // arity 3
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>):                                Function3<T1, T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, plc3: PH):  Function2<    T2, T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: PH):  Function2<T1,     T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: PH):  Function1<        T3, R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3):  Function2<T1, T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3):  Function1<    T2,     R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3):  Function1<T1,         R>;
-        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3):  Function0<            R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>): Function3<T1, T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, plc3: PH): Function2<    T2, T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, plc3: PH): Function2<T1,     T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, plc3: PH): Function1<        T3, R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,                     arg3: T3): Function2<T1, T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, plc2: PH, arg3: T3): Function1<    T2,     R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>,           arg2: T2, arg3: T3): Function1<T1,         R>;
+        <T1, T2, T3, R>(func: Function3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): Function0<            R>;
         // arity 4
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>):                                          Function4<T1, T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, plc4: PH):  Function3<    T2, T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, plc4: PH):  Function3<T1,     T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, plc4: PH):  Function2<        T3, T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: PH):  Function3<T1, T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, plc4: PH):  Function2<    T2,     T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: PH):  Function2<T1,         T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: PH):  Function1<            T4, R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4):  Function3<T1, T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4):  Function2<    T2, T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, arg4: T4):  Function2<T1,     T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4):  Function1<        T3,     R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4):  Function2<T1, T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4):  Function1<    T2,         R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4):  Function1<T1,             R>;
-        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4):  Function0<                R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>): Function4<T1, T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, plc4: PH): Function3<    T2, T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, plc4: PH): Function3<T1,     T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, plc4: PH): Function2<        T3, T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, plc4: PH): Function3<T1, T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, plc4: PH): Function2<    T2,     T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, plc4: PH): Function2<T1,         T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, plc4: PH): Function1<            T4, R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                               arg4: T4): Function3<T1, T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, plc3: PH, arg4: T4): Function2<    T2, T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, plc3: PH, arg4: T4): Function2<T1,     T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, plc3: PH, arg4: T4): Function1<        T3,     R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,                     arg3: T3, arg4: T4): Function2<T1, T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, plc2: PH, arg3: T3, arg4: T4): Function1<    T2,         R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>,           arg2: T2, arg3: T3, arg4: T4): Function1<T1,             R>;
+        <T1, T2, T3, T4, R>(func: Function4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): Function0<                R>;
         // catch-all
         (func: Function, ...args: any[]): Function;
     }
@@ -10555,7 +10555,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10564,7 +10564,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10573,7 +10573,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10581,7 +10581,7 @@ declare module _ {
         clone<TResult extends (number|string|boolean)>(
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10589,7 +10589,7 @@ declare module _ {
         clone<TResult>(
             customizer: CloneCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10597,7 +10597,7 @@ declare module _ {
         clone<TResult extends Object>(
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10615,7 +10615,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10624,7 +10624,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T[], TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10633,7 +10633,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10641,7 +10641,7 @@ declare module _ {
         clone<TResult extends (number|string|boolean)>(
             customizer: CloneCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10649,7 +10649,7 @@ declare module _ {
         clone<TResult>(
             customizer: CloneCustomizer<T[], TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10657,7 +10657,7 @@ declare module _ {
         clone<TResult extends Object>(
             customizer: CloneCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10675,7 +10675,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10684,7 +10684,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10693,7 +10693,7 @@ declare module _ {
             isDeep: boolean,
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10701,7 +10701,7 @@ declare module _ {
         clone<TResult extends (number|string|boolean)>(
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10709,7 +10709,7 @@ declare module _ {
         clone<TResult>(
             customizer: CloneCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10717,7 +10717,7 @@ declare module _ {
         clone<TResult extends Object>(
             customizer: CloneCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.clone
@@ -10822,7 +10822,7 @@ declare module _ {
         cloneDeep<TResult extends (number|string|boolean)>(
             customizer: CloneDeepCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10830,7 +10830,7 @@ declare module _ {
         cloneDeep<TResult>(
             customizer: CloneDeepCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10838,7 +10838,7 @@ declare module _ {
         cloneDeep<TResult extends Object>(
             customizer: CloneDeepCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10853,7 +10853,7 @@ declare module _ {
         cloneDeep<TResult extends (number|string|boolean)>(
             customizer: CloneDeepCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10861,7 +10861,7 @@ declare module _ {
         cloneDeep<TResult>(
             customizer: CloneDeepCustomizer<T[], TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10869,7 +10869,7 @@ declare module _ {
         cloneDeep<TResult extends Object>(
             customizer: CloneDeepCustomizer<T[], TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10884,7 +10884,7 @@ declare module _ {
         cloneDeep<TResult extends (number|string|boolean)>(
             customizer: CloneDeepCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitWrapper<TResult>;
+        ): LoDashExplicitWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10892,7 +10892,7 @@ declare module _ {
         cloneDeep<TResult>(
             customizer: CloneDeepCustomizer<T, TResult[]>,
             thisArg?: any
-        ):  LoDashExplicitArrayWrapper<TResult>;
+        ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -10900,7 +10900,7 @@ declare module _ {
         cloneDeep<TResult extends Object>(
             customizer: CloneDeepCustomizer<T, TResult>,
             thisArg?: any
-        ):  LoDashExplicitObjectWrapper<TResult>;
+        ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
          * @see _.cloneDeep
@@ -11037,14 +11037,14 @@ declare module _ {
         isArray<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
         isArray(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
@@ -12692,7 +12692,7 @@ declare module _ {
         /**
          * @see _.defaultsDeep
          **/
-        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     //_.extend
@@ -14726,7 +14726,7 @@ declare module _ {
          * Splits string by separator.
          *
          * Note: This method is based on String#split.
-         * 
+         *
          * @param separator The separator pattern to split by.
          * @param limit The length to truncate results to.
          * @return Returns the new array with the terms splitted.

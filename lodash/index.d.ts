@@ -243,7 +243,7 @@ export as namespace _;
 
 declare var _: _.LoDashStatic;
 
-declare module _ {
+declare namespace _ {
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps the given value to enable intuitive method chaining.
@@ -279,8 +279,8 @@ declare module _ {
         (value: number): LoDashImplicitWrapper<number>;
         (value: string): LoDashImplicitStringWrapper;
         (value: boolean): LoDashImplicitWrapper<boolean>;
-        (value: Array<number>): LoDashImplicitNumberArrayWrapper;
-        <T>(value: Array<T>): LoDashImplicitArrayWrapper<T>;
+        (value: number[]): LoDashImplicitNumberArrayWrapper;
+        <T>(value: T[]): LoDashImplicitArrayWrapper<T>;
         <T extends {}>(value: T): LoDashImplicitObjectWrapper<T>;
         (value: any): LoDashImplicitWrapper<any>;
 
@@ -517,7 +517,7 @@ declare module _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]) : T[];
+         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]): T[];
     }
 
     //_.difference
@@ -532,7 +532,7 @@ declare module _ {
          */
         difference<T>(
             array: T[]|List<T>,
-            ...values: Array<T[]|List<T>>
+            ...values: (T[]|List<T>)[]
         ): T[];
     }
 
@@ -5941,24 +5941,24 @@ declare module _ {
          * @param items
          * @return Returns the new concatenated array.
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashImplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: (TItem|TItem[])[]): LoDashImplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
+        concat(...items: (T|T[])[]): LoDashImplicitArrayWrapper<T>;
     }
 
     interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.concat
          */
-        concat<TItem>(...items: Array<TItem|Array<TItem>>): LoDashExplicitArrayWrapper<TItem>;
+        concat<TItem>(...items: (TItem|TItem[])[]): LoDashExplicitArrayWrapper<TItem>;
 
         /**
          * @see _.concat
          */
-        concat(...items: Array<T|Array<T>>): LoDashExplicitArrayWrapper<T>;
+        concat(...items: (T|T[])[]): LoDashExplicitArrayWrapper<T>;
     }
 
     //_.prototype.plant
@@ -8551,7 +8551,7 @@ declare module _ {
         * @return Returns the accumulated value.
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
@@ -8583,7 +8583,7 @@ declare module _ {
         * @see _.reduce
         **/
         reduce<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>): TResult;
 
         /**
@@ -8681,7 +8681,7 @@ declare module _ {
         * @return The accumulated value.
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>,
             accumulator: TResult): TResult;
 
@@ -8705,7 +8705,7 @@ declare module _ {
         * @see _.reduceRight
         **/
         reduceRight<T, TResult>(
-            collection: Array<T>,
+            collection: T[],
             callback: MemoIterator<T, TResult>): TResult;
 
         /**
@@ -9393,14 +9393,14 @@ declare module _ {
          * @see _.sortBy
          */
         sortBy<T>(
-            collection: (Array<T>|List<T>),
+            collection: (T[]|List<T>),
             iteratees: (ListIterator<T, any>|string|Object)[]): T[];
 
         /**
          * @see _.sortBy
          */
         sortBy<T>(
-            collection: (Array<T>|List<T>),
+            collection: (T[]|List<T>),
             ...iteratees: (ListIterator<T, boolean>|Object|string)[]): T[];
     }
 
@@ -10474,7 +10474,7 @@ declare module _ {
         memoize: {
             <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
             Cache: MapCacheConstructor;
-        }
+        };
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10687,7 +10687,7 @@ declare module _ {
         * @param args Arguments to be partially applied.
         * @return The new partially applied function.
         **/
-        partialRight: PartialRight
+        partialRight: PartialRight;
     }
 
     interface PartialRight {
@@ -11596,14 +11596,14 @@ declare module _ {
         isArray<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
         isArray(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArray
          */
@@ -11665,14 +11665,14 @@ declare module _ {
         isArrayLike<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLike
          */
         isArrayLike(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLike
          */
@@ -11708,14 +11708,14 @@ declare module _ {
         isArrayLikeObject<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLikeObject
          */
         isArrayLikeObject(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
         /**
          * @see _.isArrayLikeObject
          */
@@ -14807,7 +14807,7 @@ declare module _ {
         /**
          * @see _.defaultsDeep
          **/
-        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>
+        defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     // _.extend
@@ -18271,7 +18271,7 @@ declare module _ {
          * Checks `value` to determine whether a default value should be returned in
          * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
          * or `undefined`.
-         * 
+         *
          * @param value The value to check.
          * @param defaultValue The default value.
          * @returns Returns the resolved value.
